@@ -10,14 +10,7 @@ pipeline {
                 }
             }
         }
-        stage('Generate json') {
-            steps {
-                script {
-                    
-                    sh 'pip install json'
-                }
-            }
-        }
+        
 
         
 
