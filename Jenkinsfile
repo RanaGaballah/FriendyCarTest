@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Make sure you have the correct Python interpreter and pip installed in your Jenkins environment
-                    sh 'python -m pip install --upgrade pip'
+                    sh 'python3 -m pip install --upgrade pip'
                     sh 'pip install -r requirements.txt'
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Replace 'your_python_script.py' with the name of your Python script
-                    sh 'python TestLoginAPI.py'
+                    sh 'python3 TestLoginAPI.py'
                 }
             }
         }
