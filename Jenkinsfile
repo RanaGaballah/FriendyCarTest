@@ -2,24 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Generate Requirements') {
+        stage('Generate requests') {
             steps {
                 script {
                     
-                    sh 'pip freeze > requirements.txt'
+                    sh 'pip install requests'
+                }
+            }
+        }
+        stage('Generate json') {
+            steps {
+                script {
+                    
+                    sh 'pip install json'
                 }
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Make sure you have the correct Python interpreter and pip installed in your Jenkins environment
-                    sh 'python3 -m pip install --upgrade pip'
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-        }
+        
 
         stage('Run Python Script') {
             steps {
