@@ -18,9 +18,7 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    def testOutput =  sh 'python3 TestLoginAPI.py', returnStdout: true
-                    env.TEST_OUTPUT = testOutput // Store the output in an environment variable
-                    echo "Test Output:\n${testOutput}" // Print the output in the Jenkins console
+                    sh 'python3 TestLoginAPI.py'
                    
                 }
             }
@@ -31,7 +29,7 @@ pipeline {
         success {
             // Send email with the test output
             emailext subject: 'Sign In API To Corporate Build Success - Test Results',
-                      body: "Test Output:\n${TEST_OUTPUT}",
+                      body: "Login was successful , DashBoard API passed successfully , Borrower API passed successfully.",
                       to: 'developer@friendycar.com',
                       mimeType: 'text/plain'
         }
@@ -39,7 +37,7 @@ pipeline {
         failure {
             // Send email with the test output when the build fails
             emailext subject: 'Sign In API To Corporate Build Failed - Test Results',
-                      body: "Test Output:\n${TEST_OUTPUT}",
+                      body: "Test Output:test faild",
                       to: 'developer@friendycar.com',
                       mimeType: 'text/plain'
         }
