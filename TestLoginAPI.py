@@ -116,7 +116,7 @@ def successfull_seq():
 
 # automating sign in process
 def SignIn(email, password):
-    open_url(url)
+    
     driver.find_element(By.NAME, "email").clear()  # Clear old email value
     driver.find_element(By.NAME, "email").send_keys(email)
     driver.find_element(By.ID, "passwordInput").clear()
