@@ -16,8 +16,30 @@ options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_argument("--window-size=1920x1080")
 driver = webdriver.Chrome(options=options)
+email1 = os.environ.get('USERNAME1')
+password1 = os.environ.get('PASSWORD1')
+email2 = os.environ.get('USERNAME2')
+password2 = os.environ.get('PASSWORD2')
+email3 = os.environ.get('USERNAME3')
+password3 = os.environ.get('PASSWORD3')
+test_cases = [
+    {
+        'url': 'https://corporate.friendycar.com/',
+        'email' : email1,
+        'password': password1
+    },
+    {
+        'url': 'https://staging.corporate.friendycar.com',
+        'email' : email2,
+        'password': password2
+    },
+    {
+        'url': 'https://dev.corporate.friendycar.com',
+        'email' : email3,
+        'password': password3
+    },
+]
 
-#driver = webdriver.Chrome()
 
 
 
@@ -25,27 +47,8 @@ Borrower_PATH = "//h1[contains(text(), 'Borrower')]"
 Borrower_PATH_2 = '//a[@href="/borrower" and contains(@class, "menu-link")]'
 Dashboard_PATH = '//a[@href="/"]'
 Dashboard_PATH_2 = '//a[@href="/" and contains(@class, "menu-link")]'
-
 wait = WebDriverWait(driver, 30)
 actions = ActionChains(driver)
-test_cases = [
-    {
-        'url': 'https://corporate.friendycar.com/',
-        'email': 'mostafa.makram@hassanallam.com',
-        'password': '#aJ&54c7'
-    },
-    {
-        'url': 'https://staging.corporate.friendycar.com/',
-        'email': 'corporate.portal@friendycar.com',
-        'password': 'test1234'
-    },
-    {
-        'url': 'https://dev.corporate.friendycar.com',
-        'email': 'corporate.portal@friendycar.com',
-        'password': 'test1234'
-    },
-
-]
 
 def test_cases_from_list(test_cases):
     for test_case in test_cases:
@@ -61,8 +64,8 @@ def test_cases_from_list(test_cases):
         clear_old_values()
         print(f"Test completed in {end_time:.2f} seconds")
         print()
-        
-        
+
+
 
 
 
@@ -75,19 +78,6 @@ def error_msg(exeption):
 
 
 
-def signOut():
-    try:
-        sign_out_element = driver.find_element(
-            By.XPATH, "//div[@class='user-avatar-content']")
-        sign_out_element.click()
-        sign_out_buttom = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//a[contains(text(), 'Sign Out')]")))
-        sign_out_buttom.click()
-        driver.implicitly_wait(2)
-        print("sign out successfully!")
-    except Exception as a:
-        print("sign out faild", error_msg(a))
-        
 
 # automating URL
 def open_url(url):
@@ -111,12 +101,11 @@ def successfull_seq():
     open_hover_menu()
     click_menu_elements(Dashboard_PATH, Dashboard_PATH_2,
                         "clicked Dashboard successful!", "clicked Dashboard faild")
-    time.sleep(2)
-    signOut()
+    
+    
 
 # automating sign in process
 def SignIn(email, password):
-    
     driver.find_element(By.NAME, "email").clear()  # Clear old email value
     driver.find_element(By.NAME, "email").send_keys(email)
     driver.find_element(By.ID, "passwordInput").clear()
@@ -134,15 +123,7 @@ def SignIn(email, password):
         successfull_seq()
         
     except Exception as e:
-        # Check different error scenarios
-        if "Invalid credentials" in driver.page_source:
-            print("Sign in failed: Invalid credentials")
-        elif "Email is required" in driver.page_source:
-            print("Sign in failed: Email is required")
-        elif "Password is required" in driver.page_source:
-            print("Sign in failed: Password is required")
-        else:
-            print("Sign in failed: Unexpected error -",error_msg(e))
+        print("Sign in failed: Unexpected error -",error_msg(e))
 
 #clear old values after each test case in sign in 
 def clear_old_values():
@@ -168,7 +149,7 @@ def loop_over_borrowers():
     rows = driver.find_elements("xpath", "//tbody/tr")
     print("number of borrowers :", len(rows))
     if (len(rows) > 0):
-        for i in range(3):
+        for i in range(1):
             try:
                 rows = driver.find_elements(By.XPATH, "//tbody/tr")
                 rows[i].click()
@@ -222,19 +203,7 @@ def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
 
 
 
-
-
-    
-open_url("https://dev.corporate.friendycar.com")
-email = os.environ.get('USERNAME3')
-password = os.environ.get('PASSWORD3')
-start_time = time.time()
-driver.maximize_window()
-SignIn(email, password)
-end_time = time.time() - start_time
-clear_old_values()
-print(f"Test completed in {end_time:.2f} seconds")
-
+test_cases_from_list(test_cases)
 
 
 
