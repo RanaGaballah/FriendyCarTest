@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException, WebDriverException, UnexpectedAlertPresentException
 import time
 import os
+import json
 
 
 options = webdriver.ChromeOptions()
@@ -114,7 +115,8 @@ def successfull_seq():
     signOut()
 
 # automating sign in process
-def SignIn(email, password):
+def SignIn(url,email, password):
+    open_url(url)
     driver.find_element(By.NAME, "email").clear()  # Clear old email value
     driver.find_element(By.NAME, "email").send_keys(email)
     driver.find_element(By.ID, "passwordInput").clear()
@@ -220,16 +222,26 @@ def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
 
 
 
+test_cases_json_str = os.environ.get('TEST_CASES')
 
-#body
-#test_cases_from_list(test_cases)
-email = os.environ.get('USERNAME')
-password = os.environ.get('PASSWORD')
-open_url("https://corporate.friendycar.com/")
-start_time = time.time()
-driver.maximize_window()
-SignIn(email, password)
-end_time = time.time() - start_time
-clear_old_values()
-print(f"Test completed in {end_time:.2f} seconds")
+test_cases = json.loads(test_cases_json_str)
+
+for test_case in test_cases:
+    
+    url = test_case['url']
+    username = test_case['username']
+    password = test_case['password']
+    start_time = time.time()
+    driver.maximize_window()
+    SignIn(url, username, password)
+    end_time = time.time() - start_time
+    clear_old_values()
+    print(f"Test completed in {end_time:.2f} seconds")
+
+
+
+
+
+
+
 
