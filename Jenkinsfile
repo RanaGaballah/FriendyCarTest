@@ -2,46 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Generate requests') {
+        stage('New Environment') {
             steps {
-                script {
-        
-                    sh 'pip install requests'
-                    
-                }
+                sh 'python3 -m venv myenv'
+                sh '. myenv/bin/activate'
             }
         }
-        
 
-        
-
-        stage('Run Python Script') {
+        stage('Install dependencies') {
             steps {
-                script {
-                    sh 'python3 TestLoginAPI.py'
-                   
-                }
+                // Install the Python dependencies from the requirements.txt file
+                sh 'pip install -r requirements.txt'
+                
+            }
+        }
+
+        stage('Run Selenium Python script') {
+            steps {
+                // Execute your Python script here
+                sh 'python3 Test LoginAPI.py'
             }
         }
     }
-
-    post {
-        success {
-            // Send email with the test output
-            emailext subject: 'Sign In API To Corporate Build Success - Test Results',
-                      body: "Login was successful , DashBoard API passed successfully , Borrower API passed successfully.",
-                      to: 'developer@friendycar.com',
-                      mimeType: 'text/plain'
-        }
-
-        failure {
-            // Send email with the test output when the build fails
-            emailext subject: 'Sign In API To Corporate Build Failed - Test Results',
-                      body: "Test Output:test faild",
-                      to: 'developer@friendycar.com',
-                      mimeType: 'text/plain'
-        }
-    }
-
-    
 }
