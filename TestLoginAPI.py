@@ -225,9 +225,9 @@ def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
 
 
     
-open_url("https://staging.corporate.friendycar.com	")
-email = os.environ.get('USERNAME2')
-password = os.environ.get('PASSWORD2')
+open_url("https://dev.corporate.friendycar.com")
+email = os.environ.get('USERNAME3')
+password = os.environ.get('PASSWORD3')
 start_time = time.time()
 driver.maximize_window()
 SignIn(email, password)
