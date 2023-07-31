@@ -2,20 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('New Environment') {
+        stage('Run Python script') {
             steps {
-                sh 'python3 -m venv myenv'
-                sh '. myenv/bin/activate'
-            }
-        }
-
-        
-
-        stage('Run Selenium Python script') {
-            steps {
-                // Execute your Python script here
+               
                 sh 'python3 Test LoginAPI.py'
             }
+        }
+    }
+
+    post {
+       
+        failure {
+            // Send email with the test output when the build fails
+            emailext subject: 'Sign In To Corporate Build Failed - Test Results',
+                      body: "Test Output:",
+                      to: 'developer@friendycar.com',
+                      mimeType: 'text/plain'
         }
     }
 }
