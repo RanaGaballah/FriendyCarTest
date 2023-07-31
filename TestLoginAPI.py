@@ -10,11 +10,21 @@ from selenium.common.exceptions import TimeoutException, WebDriverException, Une
 import time
 import os
 
+
+options = webdriver.ChromeOptions()
+options.add_argument("--headless")
+options.add_argument("--window-size=1920x1080")
+driver = webdriver.Chrome(options=options)
+
+#driver = webdriver.Chrome()
+
+
+
 Borrower_PATH = "//h1[contains(text(), 'Borrower')]"
 Borrower_PATH_2 = '//a[@href="/borrower" and contains(@class, "menu-link")]'
 Dashboard_PATH = '//a[@href="/"]'
 Dashboard_PATH_2 = '//a[@href="/" and contains(@class, "menu-link")]'
-driver = webdriver.Chrome()
+
 wait = WebDriverWait(driver, 30)
 actions = ActionChains(driver)
 test_cases = [
