@@ -6,8 +6,8 @@ Login_URL = "https://beta.friendycar.com/api/login"
 Dashboard_URL = "https://beta.friendycar.com/maintenance-api/v1/dashboard"
 Upcoming_URL = "https://beta.friendycar.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type"
 History_URL = "https://beta.friendycar.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_typee"
-email1 = os.environ.get('USERNAME')
-password1 = os.environ.get('PASSWORD')
+email = os.environ.get('USERNAME')
+password = os.environ.get('PASSWORD')
 def DashBoard_API(URL):
     access_token = '51|sUA935JiWC0hKaoHWc0upN7h6QRf43GGVoVA4xMV'
     vheaders = {
