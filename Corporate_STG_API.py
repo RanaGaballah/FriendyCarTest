@@ -1,8 +1,10 @@
 import requests
 import json
-
+import os 
 
 Login_URL = "https://beta.friendycar.com/api/login"
+email = os.environ.get('USERNAME1')
+password = os.environ.get('PASSWORD1')
 
 
 def DashBoard_API(URL):
@@ -42,8 +44,8 @@ def Borrower_API(URL):
 
 def Login_API(URL):
     Login_Data = {
-        "email": "mostafa.makram@hassanallam.com",
-        "password": "#aJ&54c7"
+        "email": email,
+        "password": password
     }
 
     vheaders = {
