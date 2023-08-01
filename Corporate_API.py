@@ -1,10 +1,12 @@
 import requests
 import json
-
+import os
 
 Login_URL = "https://nova.friendycar.com/api/login"
 DashBoard_URL = "https://nova.friendycar.com/borrower-api/v1/dashboard"
 Borrower_URL = "https://nova.friendycar.com/borrower-api/v1/contracts?page=1&per_page=10"
+email1 = os.environ.get('USERNAME1')
+password1 = os.environ.get('PASSWORD1')
 def DashBoard_API(URL):
     access_token = '716|A420x6yljFiqaMpeAxb4nKiazPgC1R5jmoslP5Cq'
     vheaders = {
@@ -41,8 +43,8 @@ def Borrower_API(URL):
         print(response)    
 def Login_API(URL):
     Login_Data = {
-        "email": "mostafa.makram@hassanallam.com",
-        "password": "#aJ&54c7"
+        "email": email1,
+        "password": password1
     }
 
     vheaders = {
