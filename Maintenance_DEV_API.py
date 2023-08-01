@@ -7,8 +7,8 @@ Login_URL = "https://nova.friendyboat.com/api/login"
 Dashboard_URL = "https://nova.friendyboat.com/maintenance-api/v1/dashboard"
 Upcoming_URL = "https://nova.friendyboat.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type"
 History_URL = "https://nova.friendyboat.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_type"
-email1 = os.environ.get('USERNAME')
-password1 = os.environ.get('PASSWORD')
+email = os.environ.get('USERNAME')
+password = os.environ.get('PASSWORD')
 def DashBoard_API(URL):
     access_token = '1182|ceG5cLWG5IlJCVP9iTRzbuG0SUB09EE9VLOozxyv'
     vheaders = {
