@@ -11,7 +11,7 @@ test_cases = [
         'API' : "Maintenance",
         'Login_URL' : "https://nova.friendycar.com/api/login",
         'DashBoard_URL' : "https://nova.friendycar.com/maintenance-api/v1/dashboard",
-        'Upcoming_URL' : "https://nova.frievndycar.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type",
+        'Upcoming_URL' : "https://nova.friendycar.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type",
         'History_URL' : "https://nova.friendycar.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_type",
         'dashboard_access' : '799|1ETWkHmr8EVOALNsfgWSTSizOptKrc4NLNHLm7o7',
         'history_access' : '799|1ETWkHmr8EVOALNsfgWSTSizOptKrc4NLNHLm7o7',
