@@ -41,7 +41,7 @@ test_cases = [
 
 
 Maintenance_PATH = "//h1[contains(text(), 'Maintenance')]"
-Maintenance_PATH_2 = '//a[@href="/maintenance" and contains(@class, "menu-link")]'
+Maintenance_PATH_2 = '//a[@href="/maintenances" and contains(@class, "menu-link")]'
 Dashboard_PATH = '//a[@href="/"]'
 Dashboard_PATH_2 = '//a[@href="/" and contains(@class, "menu-link")]'
 wait = WebDriverWait(driver, 30)
@@ -90,7 +90,7 @@ def open_url(url):
 def successfull_seq():
     open_hover_menu()
     click_menu_elements(Maintenance_PATH, Maintenance_PATH_2,
-                        "clicked borrower successful!", "clicked borrower faild")
+                        "clicked on Upcoming Maintenance successful!", "clicked on Upcoming Maintenance faild")
     time.sleep(2)
     click_select()
     time.sleep(2)
@@ -144,14 +144,14 @@ def click_select():
 #click on each borrower row
 def loop_over_borrowers():
     rows = driver.find_elements("xpath", "//tbody/tr")
-    print("number of borrowers :", len(rows))
+    print("Number of Up Coming Maintenance :", len(rows))
     if (len(rows) > 0):
         for i in range(1):
             try:
                 rows = driver.find_elements(By.XPATH, "//tbody/tr")
                 rows[i].click()
                 driver.switch_to.window(driver.window_handles[-1])
-                print(f"Borrower Number {i+1} URL :", driver.current_url)
+                print(f"Up Coming Maintenance Number {i+1} URL :", driver.current_url)
                 time.sleep(5)
                 switching(i)
                 driver.close()
@@ -159,18 +159,18 @@ def loop_over_borrowers():
             except Exception as StaleElementReferenceException:
                 continue
     else:
-        print("no borrowers")
+        print("No Up Coming Maintenance")
 
 #check if each borrower page opened successfully or not 
 def switching(i):
     try:
         successful_switch_borrower_element = wait.until(
             EC.presence_of_element_located(
-                (By.XPATH, "//h3[contains(text(), 'Contract Details')]"))
+                (By.XPATH, "//h3[contains(text(), 'Maintenance Details')]"))
         )
-        print(f"switching to borrower {i+1} successfully")
+        print(f"switching to Up Coming Maintenance {i+1} successfully")
     except Exception as c:
-        print(f"switching to borrower {i+1} faild",error_msg(c))
+        print(f"switching to Up Coming Maintenance {i+1} faild",error_msg(c))
 
 #open hover menu to click on borrower or dashboard and check if this process done or not 
 def open_hover_menu():
