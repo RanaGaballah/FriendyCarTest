@@ -65,13 +65,13 @@ def DashBoard_API(URL,access):
     if 'message' in response:
         if response['message'] == "Dashboard Data":
             print_success("FriendyCar Corporate : DashBoard API passed successfully.")
-            print("FriendyCar Corporate : DashBoard API passed successfully.")
+            #print("FriendyCar Corporate : DashBoard API passed successfully.")
         else:
             print_error("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
-            print("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
+           # print("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
     else:
         print_error("FriendyCar Corporate : Unexpected response from the Dashboard API.")
-        print("FriendyCar Corporate : Unexpected response from the Dashboard API.")
+        #print("FriendyCar Corporate : Unexpected response from the Dashboard API.")
         print(response)
 
 def Borrower_API(URL , access):
