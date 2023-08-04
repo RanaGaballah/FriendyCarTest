@@ -2,6 +2,13 @@ import requests
 import json
 import time
 import os 
+RED = '\033[91m'
+GREEN = '\033[92m'
+def print_error(message):
+    print(RED + message + ENDC)
+
+def print_success(message):
+    print(GREEN + message + ENDC)
 email1 = os.environ.get('USERNAME1')
 password1 = os.environ.get('PASSWORD1')
 email2= os.environ.get('USERNAME2')
@@ -53,8 +60,10 @@ def DashBoard_API(URL,access):
     response = requests.get(URL,headers=vheaders).json()
     if 'message' in response:
         if response['message'] == "Dashboard Data":
+            print_success("FriendyCar Corporate : DashBoard API passed successfully.")
             print("FriendyCar Corporate : DashBoard API passed successfully.")
         else:
+            print_error("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
             print("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
     else:
         print("FriendyCar Corporate : Unexpected response from the Dashboard API.")
@@ -117,7 +126,9 @@ def loop():
             email = test_case['email']
             password = test_case['password']
             print(f"Testing API : {api_name}")
+            print(---------------------------------------------------------------------)
             Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access)
+            
             
 start_time = time.time()            
 loop()  
