@@ -120,7 +120,6 @@ def loop():
             email = test_case['email']
             password = test_case['password']
             print(f"Testing API : {api_name}")
-            print(---------------------------------------------------------------------)
             Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access)
             
             
