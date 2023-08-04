@@ -4,6 +4,7 @@ import time
 import os 
 RED = '\033[91m'
 GREEN = '\033[92m'
+ENDC = '\033[0m'
 def print_error(message):
     print(RED + message + ENDC)
 
