@@ -2,16 +2,6 @@ import requests
 import json
 import time
 import os 
-from colorama import Fore, Style, init
-
-init()
-
-def print_error(message):
-    print(Fore.RED + message + Style.RESET_ALL)
-
-def print_success(message):
-    print(Fore.GREEN + message + Style.RESET_ALL)
-
 
 email1 = os.environ.get('USERNAME1')
 password1 = os.environ.get('PASSWORD1')
@@ -64,14 +54,11 @@ def DashBoard_API(URL,access):
     response = requests.get(URL,headers=vheaders).json()
     if 'message' in response:
         if response['message'] == "Dashboard Data":
-            print_success("FriendyCar Corporate : DashBoard API passed successfully.")
-            #print("FriendyCar Corporate : DashBoard API passed successfully.")
+            print("FriendyCar Corporate : DashBoard API passed successfully.")
         else:
-            print_error("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
-           # print("FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
+            print("ERROR! FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
     else:
-        print_error("FriendyCar Corporate : Unexpected response from the Dashboard API.")
-        #print("FriendyCar Corporate : Unexpected response from the Dashboard API.")
+        print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
         print(response)
 
 def Borrower_API(URL , access):
@@ -87,7 +74,7 @@ def Borrower_API(URL , access):
     if response.status_code == 200:
         print("FriendyCar Corporate : Borrower API passed successfully.")
     else:
-        print("FriendyCar Corporate : Unexpected response from the Borrower API.")
+        print("ERROR! FriendyCar Corporate : Unexpected response from the Borrower API.")
         print(response)    
 def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access):
     Login_Data = {
@@ -108,13 +95,13 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
                 DashBoard_API(dashboard_url,dashboard_access)
                 Borrower_API(borrower_url,borrower_access)
             else:
-                print("FriendyCar Corporate : Login API failed. Please check your credentials.")
+                print("ERROR! FriendyCar Corporate : Login API failed. Please check your credentials.")
         else:
-            print("FriendyCar Corporate : Unexpected response from the Login API.")
+            print("ERROR! FriendyCar Corporate : Unexpected response from the Login API.")
             print(response)
     
     except Exception as e:
-        print("An unexpected error occurred.")
+        print("ERROR! An unexpected error occurred.")
         print(e)        
 
 
