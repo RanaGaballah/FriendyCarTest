@@ -2,14 +2,16 @@ import requests
 import json
 import time
 import os 
-RED = '\033[91m'
-GREEN = '\033[92m'
-ENDC = '\033[0m'
+from colorama import Fore, Style, init
+
+init()
+
 def print_error(message):
-    print(RED + message + ENDC)
+    print(Fore.RED + message + Style.RESET_ALL)
 
 def print_success(message):
-    print(GREEN + message + ENDC)
+    print(Fore.GREEN + message + Style.RESET_ALL)
+
 
 email1 = os.environ.get('USERNAME1')
 password1 = os.environ.get('PASSWORD1')
