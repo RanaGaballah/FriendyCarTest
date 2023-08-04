@@ -82,22 +82,22 @@ def open_url(url):
         driver.get(url)
         print(f"URL opened successfully!")
     except TimeoutException:
-        print(f"Timeout: Failed to open URL {url} within the specified time.")
+        print(f"ERROR! Timeout: Failed to open URL {url} within the specified time.")
     except WebDriverException as e:
-        print(f"WebDriverException: Failed to open URL {url}. Error: {error_msg(e)}")
+        print(f"ERROR! WebDriverException: Failed to open URL {url}. Error: {error_msg(e)}")
 
 
 def successfull_seq():
     open_hover_menu()
     click_menu_elements(Maintenance_PATH, Maintenance_PATH_2,
-                        "clicked on Upcoming Maintenance successful!", "clicked on Upcoming Maintenance faild")
+                        "clicked on Upcoming Maintenance successful!", "ERROR! clicked on Upcoming Maintenance faild")
     time.sleep(2)
     click_select()
     time.sleep(2)
     loop_over_borrowers()
     open_hover_menu()
     click_menu_elements(Dashboard_PATH, Dashboard_PATH_2,
-                        "clicked Dashboard successful!", "clicked Dashboard faild")
+                        "clicked Dashboard successful!", "ERROR! clicked Dashboard faild")
     
     
 
@@ -120,7 +120,7 @@ def SignIn(email, password):
         successfull_seq()
         
     except Exception as e:
-        print("Sign in failed: Unexpected error -",error_msg(e))
+        print("ERROR! Sign in failed: Unexpected error -",error_msg(e))
 
 #clear old values after each test case in sign in 
 def clear_old_values():
@@ -139,7 +139,7 @@ def click_select():
         select.select_by_value("100")
         print("Clicked select Successfully and chosed greatest value")
     except Exception as a:
-        print("Clicked select faild", error_msg(a))
+        print("ERROR! Clicked select faild", error_msg(a))
 
 #click on each borrower row
 def loop_over_borrowers():
@@ -170,7 +170,7 @@ def switching(i):
         )
         print(f"switching to Up Coming Maintenance {i+1} successfully")
     except Exception as c:
-        print(f"switching to Up Coming Maintenance {i+1} faild",error_msg(c))
+        print(f"ERROR! switching to Up Coming Maintenance {i+1} faild",error_msg(c))
 
 #open hover menu to click on borrower or dashboard and check if this process done or not 
 def open_hover_menu():
@@ -181,7 +181,7 @@ def open_hover_menu():
         actions.move_to_element(hover_element).perform()
         print("Open Hover Menu successful!")
     except Exception as a:
-        print("Open Hover Menu Faild", error_msg(a))
+        print("ERROR! Open Hover Menu Faild", error_msg(a))
 
 #pass (borrower or dashboard) path to click on it and check if this process done or not
 def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
