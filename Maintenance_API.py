@@ -60,9 +60,9 @@ def DashBoard_API(URL,access):
         if response['message'] == "Dashboard Data":
             print("FriendyCar Maintenance : DashBoard API passed successfully.")
         else:
-            print("FriendyCar Maintenance : DashBoard API faild, Please check your credentials.")
+            print("ERROR! FriendyCar Maintenance : DashBoard API faild, Please check your credentials.")
     else:
-        print("FriendyCar Corporate : Unexpected response from the Dashboard API.")
+        print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
         print(response)
 
 
@@ -79,7 +79,7 @@ def History_API(URL,access):
     if response.status_code == 200:
         print("FriendyCar Maintenance : History API passed successfully.")
     else:
-        print("FriendyCar Maintenance : Unexpected response from the History API.")
+        print("ERROR! FriendyCar Maintenance : Unexpected response from the History API.")
         print(response)      
 
 def Upcoming_API(URL,access):
@@ -95,7 +95,7 @@ def Upcoming_API(URL,access):
     if response.status_code == 200:
         print("FriendyCar Maintenance : Upcoming API passed successfully.")
     else:
-        print("FriendyCar Maintenance : Unexpected response from the Upcoming API.")
+        print("ERROR! FriendyCar Maintenance : Unexpected response from the Upcoming API.")
         print(response)    
 
 def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_access,history_url,history_access,upcoming_access):
@@ -118,18 +118,18 @@ def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_acce
                 Upcoming_API(upcoming_url,upcoming_access)
                 History_API(history_url,history_access)
             else:
-                print("FriendyCar Maintenance : Login API failed. Please check your credentials.")
+                print("ERROR! FriendyCar Maintenance : Login API failed. Please check your credentials.")
         else:
-            print("FriendyCar Maintenance: Unexpected response from the Login API.")
+            print("ERROR! FriendyCar Maintenance: Unexpected response from the Login API.")
             print(response)
     except requests.exceptions.ConnectionError as e:
-        print("Error: Connection Error - Failed to connect to the server.")
+        print("ERROR! : Connection Error - Failed to connect to the server.")
     except requests.exceptions.RequestException as e:
-        print("Error: Request Exception - Something went wrong with the request.")
+        print("ERROR! : Request Exception - Something went wrong with the request.")
     except json.JSONDecodeError as e:
-        print("Error: JSON Decode Error - Failed to decode the response as JSON.")
+        print("ERROR! : JSON Decode Error - Failed to decode the response as JSON.")
     except Exception as e:
-        print("An unexpected error occurred.")
+        print("ERROR! An unexpected error occurred.")
         print(e)        
 
 
