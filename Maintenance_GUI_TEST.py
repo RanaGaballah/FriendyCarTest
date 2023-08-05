@@ -82,13 +82,13 @@ def open_url(url):
         driver.get(url)
         print(f"URL opened successfully!")
     except TimeoutException:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print(f"ERROR! Timeout: Failed to open URL {url} within the specified time.")
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
     except WebDriverException as e:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print(f"ERROR! WebDriverException: Failed to open URL {url}. Error: {error_msg(e)}")
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
 
 
 def successfull_seq():
@@ -124,9 +124,9 @@ def SignIn(email, password):
         successfull_seq()
         
     except Exception as e:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print("ERROR! Sign in failed: Unexpected error -",error_msg(e))
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
 
 #clear old values after each test case in sign in 
 def clear_old_values():
@@ -145,9 +145,9 @@ def click_select():
         select.select_by_value("100")
         print("Clicked select Successfully and chosed greatest value")
     except Exception as a:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print("ERROR! Clicked select faild", error_msg(a))
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
 
 #click on each borrower row
 def loop_over_borrowers():
@@ -178,10 +178,9 @@ def switching(i):
         )
         print(f"switching to Up Coming Maintenance {i+1} successfully")
     except Exception as c:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print(f"ERROR! switching to Up Coming Maintenance {i+1} faild",error_msg(c))
-        print(---------------------------------------------------------------------)
-
+        print("---------------------------------------------------------------------")
 #open hover menu to click on borrower or dashboard and check if this process done or not 
 def open_hover_menu():
     # open hover section
@@ -191,9 +190,9 @@ def open_hover_menu():
         actions.move_to_element(hover_element).perform()
         print("Open Hover Menu successful!")
     except Exception as a:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print("ERROR! Open Hover Menu Faild", error_msg(a))
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
 
 #pass (borrower or dashboard) path to click on it and check if this process done or not
 def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
@@ -208,9 +207,9 @@ def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
         print(successMsg)
         time.sleep(2)
     except Exception as b:
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
         print(faildMsg, error_msg(b))
-        print(---------------------------------------------------------------------)
+        print("---------------------------------------------------------------------")
 
 
 
