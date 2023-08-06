@@ -56,10 +56,14 @@ def DashBoard_API(URL,access):
         if response['message'] == "Dashboard Data":
             print("FriendyCar Corporate : DashBoard API passed successfully.")
         else:
+            print("---------------------------------------------------------------------")
             print("ERROR! FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
+            print("---------------------------------------------------------------------")
     else:
+        print("---------------------------------------------------------------------")
         print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
         print(response)
+        print("---------------------------------------------------------------------")
 
 def Borrower_API(URL , access):
     access_token = access
@@ -74,8 +78,10 @@ def Borrower_API(URL , access):
     if response.status_code == 200:
         print("FriendyCar Corporate : Borrower API passed successfully.")
     else:
+        print("---------------------------------------------------------------------")
         print("ERROR! FriendyCar Corporate : Unexpected response from the Borrower API.")
         print(response)    
+        print("---------------------------------------------------------------------")
 def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access):
     Login_Data = {
         "email": email,
@@ -95,14 +101,20 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
                 DashBoard_API(dashboard_url,dashboard_access)
                 Borrower_API(borrower_url,borrower_access)
             else:
+                print("---------------------------------------------------------------------")
                 print("ERROR! FriendyCar Corporate : Login API failed. Please check your credentials.")
+                print("---------------------------------------------------------------------")
         else:
+            print("---------------------------------------------------------------------")
             print("ERROR! FriendyCar Corporate : Unexpected response from the Login API.")
             print(response)
+            print("---------------------------------------------------------------------")
     
     except Exception as e:
+        print("---------------------------------------------------------------------")
         print("ERROR! An unexpected error occurred.")
-        print(e)        
+        print(e)       
+        print("---------------------------------------------------------------------")
 
 
 
