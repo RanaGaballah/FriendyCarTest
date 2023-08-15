@@ -126,6 +126,18 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
             print("ERROR! FriendyCar Corporate : Unexpected response from the Login API.")
             print(response)
             print("---------------------------------------------------------------------")
+    except requests.exceptions.ConnectionError as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! : Connection Error - Failed to connect to the server.")
+        print("---------------------------------------------------------------------")
+    except requests.exceptions.RequestException as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! : Request Exception - Something went wrong with the request.")
+        print("---------------------------------------------------------------------")
+    except json.JSONDecodeError as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! : JSON Decode Error - Failed to decode the response as JSON.")
+        print("---------------------------------------------------------------------")
     except Exception as e:
         print("---------------------------------------------------------------------")
         print("ERROR! ",error_msg(e))
