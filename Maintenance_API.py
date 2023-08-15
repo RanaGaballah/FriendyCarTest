@@ -5,6 +5,11 @@ import os
 email1 = os.environ.get('USERNAME')
 password = os.environ.get('PASSWORD')
 
+def error_msg(exeption):
+    errorMsg = str(exeption)
+    error_lines = errorMsg.split('\n')
+    for line in error_lines[:2]:
+            return line
 
 test_cases = [
     {
@@ -55,20 +60,24 @@ def DashBoard_API(URL,access):
         'Content-Type': 'application/json'
 
     }
-    response = requests.get(URL,headers=vheaders).json()
-    if 'message' in response:
-        if response['message'] == "Dashboard Data":
-            print("FriendyCar Maintenance : DashBoard API passed successfully.")
+    try:
+        response = requests.get(URL,headers=vheaders).json()
+        if 'message' in response:
+            if response['message'] == "Dashboard Data":
+                print("FriendyCar Maintenance : DashBoard API passed successfully.")
+            else:
+                print("---------------------------------------------------------------------")
+                print("ERROR! FriendyCar Maintenance : DashBoard API faild, Please check your credentials.")
+                print("---------------------------------------------------------------------")
         else:
             print("---------------------------------------------------------------------")
-            print("ERROR! FriendyCar Maintenance : DashBoard API faild, Please check your credentials.")
+            print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
             print("---------------------------------------------------------------------")
-    else:
+            print(response)
+    except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-        print(response)
-
 
 def History_API(URL,access):
     access_token = access
@@ -79,14 +88,19 @@ def History_API(URL,access):
         'Content-Type': 'application/json'
 
     }
-    response = requests.get(URL,headers=vheaders)
-    if response.status_code == 200:
-        print("FriendyCar Maintenance : History API passed successfully.")
-    else:
+    try:
+        response = requests.get(URL,headers=vheaders)
+        if response.status_code == 200:
+            print("FriendyCar Maintenance : History API passed successfully.")
+        else:
+            print("---------------------------------------------------------------------")
+            print("ERROR! FriendyCar Maintenance : Unexpected response from the History API.")
+            print("---------------------------------------------------------------------")
+            print(response) 
+    except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! FriendyCar Maintenance : Unexpected response from the History API.")
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-        print(response)      
 
 def Upcoming_API(URL,access):
     access_token = access
@@ -97,15 +111,19 @@ def Upcoming_API(URL,access):
         'Content-Type': 'application/json'
 
     }
-    response = requests.get(URL,headers=vheaders)
-    if response.status_code == 200:
-        print("FriendyCar Maintenance : Upcoming API passed successfully.")
-    else:
+    try:
+        response = requests.get(URL,headers=vheaders)
+        if response.status_code == 200:
+            print("FriendyCar Maintenance : Upcoming API passed successfully.")
+        else:
+            print("---------------------------------------------------------------------")
+            print("ERROR! FriendyCar Maintenance : Unexpected response from the Upcoming API.")
+            print(response)    
+            print("---------------------------------------------------------------------")
+    except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! FriendyCar Maintenance : Unexpected response from the Upcoming API.")
-        print(response)    
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-
 def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_access,history_url,history_access,upcoming_access):
     Login_Data = {
         "email": email,
@@ -155,6 +173,7 @@ def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_acce
 
 def loop():
     for test_case in test_cases:
+        try:
             api_name = test_case['API']
             login_url = test_case['Login_URL']
             dashboard_url = test_case['DashBoard_URL']
@@ -167,11 +186,21 @@ def loop():
             password = test_case['password']
             print(f"Testing API : {api_name}")
             Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_access,history_url,history_access,upcoming_access)
+        except Exception as e:
+            print("---------------------------------------------------------------------")
+            print("ERROR! ",error_msg(e))
+            print("---------------------------------------------------------------------")
             
-start_time = time.time()            
-loop()  
-end_time = time.time() - start_time
-print(f"Test completed in {end_time:.2f} seconds")    
+
+try:
+    start_time = time.time()            
+    loop()  
+    end_time = time.time() - start_time
+    print(f"Test completed in {end_time:.2f} seconds") 
+except Exception as e:
+    print("---------------------------------------------------------------------")
+    print("ERROR! ",error_msg(e))
+    print("---------------------------------------------------------------------")
 
 
 
