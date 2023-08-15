@@ -7,6 +7,12 @@ email1 = os.environ.get('USERNAME1')
 password1 = os.environ.get('PASSWORD1')
 email2= os.environ.get('USERNAME2')
 password2 = os.environ.get('PASSWORD2')
+
+def error_msg(exeption):
+    errorMsg = str(exeption)
+    error_lines = errorMsg.split('\n')
+    for line in error_lines[:2]:
+            return line
 test_cases = [
     {
         'API' : "Corporate",
@@ -51,18 +57,23 @@ def DashBoard_API(URL,access):
         'Content-Type': 'application/json'
 
     }
-    response = requests.get(URL,headers=vheaders).json()
-    if 'message' in response:
-        if response['message'] == "Dashboard Data":
-            print("FriendyCar Corporate : DashBoard API passed successfully.")
+    try:
+        response = requests.get(URL,headers=vheaders).json()
+        if 'message' in response:
+            if response['message'] == "Dashboard Data":
+                print("FriendyCar Corporate : DashBoard API passed successfully.")
+            else:
+                print("---------------------------------------------------------------------")
+                print("ERROR! FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
+                print("---------------------------------------------------------------------")
         else:
             print("---------------------------------------------------------------------")
-            print("ERROR! FriendyCar Corporate : DashBoard API faild, Please check your credentials.")
+            print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
+            print(response)
             print("---------------------------------------------------------------------")
-    else:
+    except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! FriendyCar Corporate : Unexpected response from the Dashboard API.")
-        print(response)
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
 
 def Borrower_API(URL , access):
@@ -74,14 +85,20 @@ def Borrower_API(URL , access):
         'Content-Type': 'application/json'
 
     }
-    response = requests.get(URL,headers=vheaders)
-    if response.status_code == 200:
-        print("FriendyCar Corporate : Borrower API passed successfully.")
-    else:
+    try:
+        response = requests.get(URL,headers=vheaders)
+        if response.status_code == 200:
+            print("FriendyCar Corporate : Borrower API passed successfully.")
+        else:
+            print("---------------------------------------------------------------------")
+            print("ERROR! FriendyCar Corporate : Unexpected response from the Borrower API.")
+            print(response)    
+            print("---------------------------------------------------------------------")
+    except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! FriendyCar Corporate : Unexpected response from the Borrower API.")
-        print(response)    
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
+
 def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access):
     Login_Data = {
         "email": email,
@@ -109,11 +126,9 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
             print("ERROR! FriendyCar Corporate : Unexpected response from the Login API.")
             print(response)
             print("---------------------------------------------------------------------")
-    
     except Exception as e:
         print("---------------------------------------------------------------------")
-        print("ERROR! An unexpected error occurred.")
-        print(e)       
+        print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
 
 
@@ -121,19 +136,29 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
 
 def loop():
     for test_case in test_cases:
-            api_name = test_case['API']
-            login_url = test_case['Login_URL']
-            dashboard_url = test_case['DashBoard_URL']
-            borrower_url = test_case['Borrower_URL']
-            dashboard_access = test_case['dashboard_access']
-            borrower_access = test_case['borrower_access']
-            email = test_case['email']
-            password = test_case['password']
-            print(f"Testing API : {api_name}")
-            Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access)
+            try:
+                api_name = test_case['API']
+                login_url = test_case['Login_URL']
+                dashboard_url = test_case['DashBoard_URL']
+                borrower_url = test_case['Borrower_URL']
+                dashboard_access = test_case['dashboard_access']
+                borrower_access = test_case['borrower_access']
+                email = test_case['email']
+                password = test_case['password']
+                print(f"Testing API : {api_name}")
+                Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access)
+            except Exception as e:
+                print("---------------------------------------------------------------------")
+                print("ERROR! ",error_msg(e))
+                print("---------------------------------------------------------------------")    
             
-            
-start_time = time.time()            
-loop()  
-end_time = time.time() - start_time
-print(f"Test completed in {end_time:.2f} seconds")          
+try:            
+    start_time = time.time()            
+    loop()  
+    end_time = time.time() - start_time
+    print(f"Test completed in {end_time:.2f} seconds")   
+except Exception as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! ",error_msg(e))
+        print("---------------------------------------------------------------------")       
+  
