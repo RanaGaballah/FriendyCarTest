@@ -52,18 +52,23 @@ actions = ActionChains(driver)
 
 def test_cases_from_list(test_cases):
     for test_case in test_cases:
-        url = test_case['url']
-        email = test_case['email']
-        password = test_case['password']
-        print(f"Testing URL: {url}, Email: {email}, Password: {password}")
-        open_url(url)
-        start_time = time.time()
-        driver.maximize_window()
-        SignIn(email, password)
-        end_time = time.time() - start_time
-        clear_old_values()
-        print(f"Test completed in {end_time:.2f} seconds")
-        print()
+        try:
+            url = test_case['url']
+            email = test_case['email']
+            password = test_case['password']
+            print(f"Testing URL: {url}, Email: {email}, Password: {password}")
+            open_url(url)
+            start_time = time.time()
+            driver.maximize_window()
+            SignIn(email, password)
+            end_time = time.time() - start_time
+            clear_old_values()
+            print(f"Test completed in {end_time:.2f} seconds")
+            print()
+        except Exception as e:
+            print("---------------------------------------------------------------------")
+            print("ERROR! An error occurred:", error_msg(e))
+            print("---------------------------------------------------------------------")
 
 
 
@@ -77,59 +82,80 @@ def error_msg(exeption):
 
 
 
-
-
 # automating URL
 def open_url(url):
     try:
         driver.get(url)
+        time.sleep(3)
         print(f"URL opened successfully!")
+        try:
+            bad_gateway_element = driver.find_element(By.XPATH, "//center/h1[contains(text(), '502 Bad Gateway')]")
+            print("---------------------------------------------------------------------")
+            print("ERROR! Encountered a 502 Bad Gateway error.")
+            print("---------------------------------------------------------------------")
+        except:
+            pass
     except TimeoutException:
         print("---------------------------------------------------------------------")
         print(f"ERROR! Timeout: Failed to open URL {url} within the specified time.")
         print("---------------------------------------------------------------------")
     except WebDriverException as e:
         print("---------------------------------------------------------------------")
-        print(f"ERROR! WebDriverException: Failed to open URL {url}. Error: {error_msg(e)}")
+        print(f"ERROR! WebDriverException: Failed to open URL {url}. Error: {error_msg(e)}")  
+        print("---------------------------------------------------------------------")
+    except  Exception as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! An error occurred:", error_msg(e))
         print("---------------------------------------------------------------------")
 
 
+
 def successfull_seq():
-    open_hover_menu()
-    click_menu_elements(Borrower_PATH, Borrower_PATH_2,
-                        "clicked borrower successful!", "ERROR! clicked borrower faild")
-    time.sleep(2)
-    click_select()
-    time.sleep(2)
-    loop_over_borrowers()
-    open_hover_menu()
-    click_menu_elements(Dashboard_PATH, Dashboard_PATH_2,
-                        "clicked Dashboard successful!", "ERROR! clicked Dashboard faild")
+    try:
+        open_hover_menu()
+        click_menu_elements(Borrower_PATH, Borrower_PATH_2,
+                            "clicked borrower successful!", "clicked borrower faild")
+        time.sleep(2)
+        click_select()
+        time.sleep(2)
+        loop_over_borrowers()
+        open_hover_menu()
+        click_menu_elements(Dashboard_PATH, Dashboard_PATH_2,
+                            "clicked Dashboard successful!", "clicked Dashboard faild")
+    except Exception as e:
+        print("---------------------------------------------------------------------")
+        print("ERROR! An error occurred:", error_msg(e))
+        print("---------------------------------------------------------------------")
     
     
 
 # automating sign in process
 def SignIn(email, password):
-    driver.find_element(By.NAME, "email").clear()  # Clear old email value
-    driver.find_element(By.NAME, "email").send_keys(email)
-    driver.find_element(By.ID, "passwordInput").clear()
-    driver.find_element(By.ID, "passwordInput").send_keys(password)
-    remember_me_checkbox = driver.find_element(By.XPATH, "//label[@for='remember']")
-    remember_me_checkbox.click()
-    driver.find_element(By.TAG_NAME, "button").click()
     try:
-        # Check if sign-in is successful (Dashboard page is loaded)
-        successful_signin_element = wait.until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//h1[contains(text(), 'Dashboard')]"))
-        )
-        print("Sign in successful!")
-        successfull_seq()
-        
+        driver.find_element(By.NAME, "email").clear()  # Clear old email value
+        driver.find_element(By.NAME, "email").send_keys(email)
+        driver.find_element(By.ID, "passwordInput").clear()
+        driver.find_element(By.ID, "passwordInput").send_keys(password)
+        remember_me_checkbox = driver.find_element(By.XPATH, "//label[@for='remember']")
+        remember_me_checkbox.click()
+        driver.find_element(By.TAG_NAME, "button").click()
+        try:
+            # Check if sign-in is successful (Dashboard page is loaded)
+            successful_signin_element = wait.until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//h1[contains(text(), 'Dashboard')]"))
+            )
+            print("Sign in successful!")
+            successfull_seq()
+            
+        except Exception as e:
+            print("---------------------------------------------------------------------")
+            print("ERROR! Sign in failed: Unexpected error -",error_msg(e))
+            print("---------------------------------------------------------------------")
     except Exception as e:
-        print("---------------------------------------------------------------------")
-        print("ERROR! Sign in failed: Unexpected error -",error_msg(e))
-        print("---------------------------------------------------------------------")
+            print("---------------------------------------------------------------------")
+            print("ERROR! Sign in failed: Unexpected error -",error_msg(e))
+            print("---------------------------------------------------------------------")
 
 #clear old values after each test case in sign in 
 def clear_old_values():
