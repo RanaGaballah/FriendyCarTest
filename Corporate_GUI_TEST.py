@@ -226,16 +226,21 @@ def open_hover_menu():
 
 #pass (borrower or dashboard) path to click on it and check if this process done or not
 def click_menu_elements(element_path, element_path_2, successMsg, faildMsg):
-    element = wait.until(EC.element_to_be_clickable(
-        (By.XPATH, element_path_2)))
-    element.click()
     try:
-        successful_borrower_element = wait.until(
-            EC.presence_of_element_located(
-                (By.XPATH, element_path))
-        )
-        print(successMsg)
-        time.sleep(2)
+        element = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, element_path_2)))
+        element.click()
+        try:
+            successful_borrower_element = wait.until(
+                EC.presence_of_element_located(
+                    (By.XPATH, element_path))
+            )
+            print(successMsg)
+            time.sleep(2)
+        except Exception as b:
+            print("---------------------------------------------------------------------")
+            print(faildMsg, error_msg(b))
+            print("---------------------------------------------------------------------")
     except Exception as b:
         print("---------------------------------------------------------------------")
         print(faildMsg, error_msg(b))
