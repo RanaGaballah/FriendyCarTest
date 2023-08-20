@@ -33,11 +33,7 @@ test_cases = [
         'email' : email2,
         'password': password2
     },
-    {
-        'url': 'https://dev.corporate.friendycar.com',
-        'email' : email3,
-        'password': password3
-    },
+    
 ]
 
 
@@ -56,7 +52,7 @@ def test_cases_from_list(test_cases):
             url = test_case['url']
             email = test_case['email']
             password = test_case['password']
-            print(f"Testing URL: {url}, Email: {email}, Password: {password}")
+            print(f"Testing URL: {url}, Email: {email})
             open_url(url)
             start_time = time.time()
             driver.maximize_window()
