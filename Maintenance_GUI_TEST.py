@@ -165,11 +165,13 @@ def click_select():
     try:
         driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);")
-        another_element = wait.until(
-            EC.element_to_be_clickable((By.TAG_NAME, "select")))
-        actions.move_to_element(another_element).perform()
-        select = Select(another_element)
-        select.select_by_value("100")
+        select_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "form-select"))) 
+        actions.move_to_element(select_element).perform()
+        select = Select(select_element)
+        desired_option_value = "100"
+        desired_option_locator = (By.XPATH, f"//option[@value='{desired_option_value}']")
+        desired_option = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(desired_option_locator))
+        desired_option.click()
         print("Clicked select Successfully and chosed greatest value")
     except Exception as a:
         print("---------------------------------------------------------------------")
