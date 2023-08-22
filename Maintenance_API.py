@@ -115,7 +115,7 @@ def Upcoming_API(URL,access):
         print("---------------------------------------------------------------------")
         print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_access,history_url,history_access,upcoming_access):
+def Login_API(email,password,login_url,dashboard_url,upcoming_url,history_url):
     Login_Data = {
         "email": email,
         "password": password
@@ -171,13 +171,10 @@ def loop():
             dashboard_url = test_case['DashBoard_URL']
             upcoming_url = test_case['Upcoming_URL']
             history_url = test_case['History_URL']
-            dashboard_access = test_case['dashboard_access']
-            history_access = test_case['history_access']
-            upcoming_access = test_case['upcoming_access']
             email = test_case['email']
             password = test_case['password']
             print(f"Testing API : {api_name}")
-            Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_access,history_url,history_access,upcoming_access)
+            Login_API(email,password,login_url,dashboard_url,upcoming_url,history_url)
         except Exception as e:
             print("---------------------------------------------------------------------")
             print("ERROR! ",error_msg(e))
