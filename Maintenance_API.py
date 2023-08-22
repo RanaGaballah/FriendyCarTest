@@ -18,9 +18,6 @@ test_cases = [
         'DashBoard_URL' : "https://nova.friendycar.com/maintenance-api/v1/dashboard",
         'Upcoming_URL' : "https://nova.friendycar.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type",
         'History_URL' : "https://nova.friendycar.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_type",
-        'dashboard_access' : '799|1ETWkHmr8EVOALNsfgWSTSizOptKrc4NLNHLm7o7',
-        'history_access' : '799|1ETWkHmr8EVOALNsfgWSTSizOptKrc4NLNHLm7o7',
-        'upcoming_access' : '799|1ETWkHmr8EVOALNsfgWSTSizOptKrc4NLNHLm7o7',
         "email": email1,
         "password": password,
     },
@@ -30,9 +27,6 @@ test_cases = [
         'DashBoard_URL' : "https://beta.friendycar.com/maintenance-api/v1/dashboard",
         'Upcoming_URL' : "https://beta.friendycar.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type",
         'History_URL' : "https://beta.friendycar.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_typee",
-        'dashboard_access' : '51|sUA935JiWC0hKaoHWc0upN7h6QRf43GGVoVA4xMV',
-        'history_access' : '51|sUA935JiWC0hKaoHWc0upN7h6QRf43GGVoVA4xMV',
-        'upcoming_access' : '51|sUA935JiWC0hKaoHWc0upN7h6QRf43GGVoVA4xMV',
         "email": email1,
         "password": password,
     },
@@ -42,9 +36,6 @@ test_cases = [
         'DashBoard_URL' : "https://nova.friendyboat.com/maintenance-api/v1/dashboard",
         'Upcoming_URL' : "https://nova.friendyboat.com/maintenance-api/v1/maintenances?status=Upcoming&page=1&per_page=10&date_filter_type",
         'History_URL' : "https://nova.friendyboat.com/maintenance-api/v1/maintenances?status=History&page=1&per_page=10&date_filter_type",
-        'dashboard_access' : '1182|ceG5cLWG5IlJCVP9iTRzbuG0SUB09EE9VLOozxyv',
-        'history_access' : '1182|ceG5cLWG5IlJCVP9iTRzbuG0SUB09EE9VLOozxyv',
-        'upcoming_access' : '1182|ceG5cLWG5IlJCVP9iTRzbuG0SUB09EE9VLOozxyv',
         "email": email1,
         "password": password,
     },
@@ -140,9 +131,10 @@ def Login_API(email,password,login_url,dashboard_url,upcoming_url,dashboard_acce
         if 'message' in response:
             if response['message'] == "Logged successfully!.":
                 print("FriendyCar Maintenance : Login API Passed successfully.")
-                DashBoard_API(dashboard_url,dashboard_access)
-                Upcoming_API(upcoming_url,upcoming_access)
-                History_API(history_url,history_access)
+                access_token = response['data']['access_token']
+                DashBoard_API(dashboard_url,access_token)
+                Upcoming_API(upcoming_url,access_token)
+                History_API(history_url,access_token)
             else:
                 print("---------------------------------------------------------------------")
                 print("ERROR! FriendyCar Maintenance : Login API failed. Please check your credentials.")
