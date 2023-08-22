@@ -86,7 +86,7 @@ def Borrower_API(URL , access):
         print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
 
-def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access):
+def Login_API(email,password,login_url,dashboard_url,borrower_url):
     Login_Data = {
         "email": email,
         "password": password
@@ -141,12 +141,10 @@ def loop():
                 login_url = test_case['Login_URL']
                 dashboard_url = test_case['DashBoard_URL']
                 borrower_url = test_case['Borrower_URL']
-                dashboard_access = test_case['dashboard_access']
-                borrower_access = test_case['borrower_access']
                 email = test_case['email']
                 password = test_case['password']
                 print(f"Testing API : {api_name}")
-                Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_access,borrower_access)
+                Login_API(email,password,login_url,dashboard_url,borrower_url)
             except Exception as e:
                 print("---------------------------------------------------------------------")
                 print("ERROR! ",error_msg(e))
