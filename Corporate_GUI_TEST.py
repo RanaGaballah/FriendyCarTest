@@ -28,10 +28,11 @@ test_cases = [
         'email' : email1,
         'password': password1
     },
+    
     {
-        'url': 'https://staging.corporate.friendycar.com',
-        'email' : email2,
-        'password': password2
+        'url': 'https://dev.corporate.friendycar.com',
+        'email' :email3,
+        'password': password3
     },
     
 ]
