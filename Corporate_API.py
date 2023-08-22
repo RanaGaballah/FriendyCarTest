@@ -25,16 +25,6 @@ test_cases = [
         "password": password1,
     },
     {
-        'API' : "Corporate STG",
-        'Login_URL' : "https://beta.friendycar.com/api/login",
-        'DashBoard_URL' : "https://nova.friendycar.com/borrower-api/v1/dashboard",
-        'Borrower_URL' : "https://nova.friendycar.com/borrower-api/v1/contracts?page=1&per_page=10",
-        'dashboard_access' : '716|A420x6yljFiqaMpeAxb4nKiazPgC1R5jmoslP5Cq',
-        'borrower_access' : '722|zeRTQWoD5E5gnFzgkfr6Kdc1IT2lHYhwZMWkrCyr',
-        "email" : email2,
-        "password": password2,
-    },
-    {
         'API' : "Corporate DEV",
         'Login_URL' : "https://nova.friendyboat.com/api/login",
         'DashBoard_URL' : "https://nova.friendyboat.com/borrower-api/v1/dashboard",
