@@ -19,8 +19,6 @@ test_cases = [
         'Login_URL' : "https://nova.friendycar.com/api/login",
         'DashBoard_URL' : "https://nova.friendycar.com/borrower-api/v1/dashboard",
         'Borrower_URL' : "https://nova.friendycar.com/borrower-api/v1/contracts?page=1&per_page=10",
-        'dashboard_access' : '716|A420x6yljFiqaMpeAxb4nKiazPgC1R5jmoslP5Cq',
-        'borrower_access' : '722|zeRTQWoD5E5gnFzgkfr6Kdc1IT2lHYhwZMWkrCyr',
         "email": email1,
         "password": password1,
     },
@@ -29,8 +27,6 @@ test_cases = [
         'Login_URL' : "https://nova.friendyboat.com/api/login",
         'DashBoard_URL' : "https://nova.friendyboat.com/borrower-api/v1/dashboard",
         'Borrower_URL' : "https://nova.friendyboat.com/borrower-api/v1/contracts?page=1&per_page=10",
-        'dashboard_access' : '1176|bfrbPhzEFy6FmZ1Hh7X8Sd1Lh6QfVjIhDKrKD2Eg',
-        'borrower_access' : '1176|bfrbPhzEFy6FmZ1Hh7X8Sd1Lh6QfVjIhDKrKD2Eg',
         "email" : email2,
         "password": password2,
     },
@@ -106,8 +102,9 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url,dashboard_acce
         if 'message' in response:
             if response['message'] == "Logged successfully!.":
                 print("FriendyCar Corporate : Login API Passed successfully.")
-                DashBoard_API(dashboard_url,dashboard_access)
-                Borrower_API(borrower_url,borrower_access)
+                access_token = response['data']['access_token']
+                DashBoard_API(dashboard_url,access_token)
+                Borrower_API(borrower_url,access_token)
             else:
                 print("---------------------------------------------------------------------")
                 print("ERROR! FriendyCar Corporate : Login API failed. Please check your credentials.")
