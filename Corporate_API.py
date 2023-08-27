@@ -2,17 +2,21 @@ import requests
 import json
 import time
 import os 
-
+# Fetch credentials from environment variables
 email1 = os.environ.get('USERNAME1')
 password1 = os.environ.get('PASSWORD1')
 email2= os.environ.get('USERNAME2')
 password2 = os.environ.get('PASSWORD2')
 
+
+# Function to extract first few lines of error message
 def error_msg(exeption):
     errorMsg = str(exeption)
     error_lines = errorMsg.split('\n')
     for line in error_lines[:2]:
             return line
+
+# List of test cases with different API configurations
 test_cases = [
     {
         'API' : "Corporate",
@@ -34,7 +38,7 @@ test_cases = [
 ]
 
 
-
+# Function to test Dashboard API
 def DashBoard_API(URL,access):
     access_token = access
     vheaders = {
@@ -62,7 +66,8 @@ def DashBoard_API(URL,access):
         print("---------------------------------------------------------------------")
         print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-
+        
+# Function to test Borrower API
 def Borrower_API(URL , access):
     access_token = access
     vheaders = {
@@ -85,7 +90,7 @@ def Borrower_API(URL , access):
         print("---------------------------------------------------------------------")
         print("ERROR! ",error_msg(e))
         print("---------------------------------------------------------------------")
-
+# Function to test Login API
 def Login_API(email,password,login_url,dashboard_url,borrower_url):
     Login_Data = {
         "email": email,
@@ -133,7 +138,7 @@ def Login_API(email,password,login_url,dashboard_url,borrower_url):
 
 
 
-
+# Function to iterate through test cases and run API tests
 def loop():
     for test_case in test_cases:
             try:
@@ -150,7 +155,8 @@ def loop():
                 print("ERROR! ",error_msg(e))
                 print("---------------------------------------------------------------------")    
             
-try:            
+try:      
+    # Measure execution time of API tests
     start_time = time.time()            
     loop()  
     end_time = time.time() - start_time
